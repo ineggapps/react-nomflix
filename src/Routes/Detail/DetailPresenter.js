@@ -36,7 +36,7 @@ const Content = styled.div`
 
 const Cover = styled.div`
   width: 45vh;
-  height: 65vh;
+  height: 66.7vh;
   background-image: url(${props => props.bgImage});
   background-position: center center;
   background-size: cover;
@@ -54,6 +54,7 @@ const Title = styled.h3`
 `;
 
 const ItemContainer = styled.div`
+  position: relative;
   margin-bottom: 20px;
 `;
 
@@ -61,6 +62,10 @@ const Item = styled.span``;
 
 const Divider = styled.span`
   margin: 0 10px 20px;
+
+  :after {
+    content: "▪";
+  }
 `;
 
 const Overview = styled.p`
@@ -68,6 +73,18 @@ const Overview = styled.p`
   opacity: 0.9;
   line-height: 1.5;
   width: 50%;
+`;
+
+const Imdb = styled.a`
+  display: inline-block;
+  position: relative;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+  background-image: url(${props => props.src});
+  background-position: center center;
+  background-size: cover;
 `;
 
 const DetailPresenter = ({ result, error, loading }) =>
@@ -100,15 +117,27 @@ const DetailPresenter = ({ result, error, loading }) =>
           <Title>{result.original_title ? result.original_title : result.original_name}</Title>
           <ItemContainer>
             <Item>{result.release_date ? result.release_date : result.first_air_date}</Item>
-            <Divider>▪</Divider>
+            <Divider />
             <Item>{result.runtime ? result.runtime : result.episode_run_time[0]} min</Item>
-            <Divider>▪</Divider>
+            <Divider />
             <Item>
               {result.genres &&
                 result.genres.map((genre, index) =>
                   index === result.genres.length - 1 ? genre.name : `${genre.name} / `
                 )}
             </Item>
+            {result.imdb_id && (
+              <>
+                <Divider />
+                <Item>
+                  <Imdb
+                    href={`https://www.imdb.com/title/${result.imdb_id}`}
+                    target={"_blank"}
+                    src={require("../../assets/logoImdb.png")}
+                  />
+                </Item>
+              </>
+            )}
           </ItemContainer>
           <Overview>{result.overview && result.overview}</Overview>
         </Data>
