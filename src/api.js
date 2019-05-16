@@ -10,7 +10,7 @@ const api = axios.create({
 
 // api.get("tv/popular"); // use RELATIVE URL.. If you put the '/'  at the front, It means using the ABSOLUTE URL.
 
-export const moviesApi = {
+export const movieApi = {
   nowPlaying: () => api.get("movie/now_playing"),
   upcoming: () => api.get("movie/upcoming"),
   popular: () => api.get("movie/popular"),

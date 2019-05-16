@@ -36,6 +36,7 @@ const SLink = styled(Link)`
 `;
 
 const HeaderComponent = ({ location: { pathname } }) => (
+  // HeaderComponent can see current location called pathname by using withRouter(~)
   <Header>
     <List>
       <Item current={pathname === "/"}>
