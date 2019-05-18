@@ -3,6 +3,9 @@ import { Link, withRouter } from "react-router-dom";
 import styled from "styled-components";
 
 const Header = styled.header`
+  font-family: "Fredoka One", cursive;
+  font-size: 16px;
+  text-transform: uppercase;
   color: white;
   position: fixed;
   top: 0;

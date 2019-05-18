@@ -2,6 +2,7 @@ import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
 const globalStyles = createGlobalStyle`
+    @import url('https://fonts.googleapis.com/css?family=Fredoka+One');
     ${reset};
     a{
         text-decoration:none;
