@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import YouTube from "react-youtube";
 
 const Container = styled.div``;
 
@@ -23,21 +24,32 @@ const VideoPresenter = ({ result }) => {
 
 const renderNotFound = () => <Container>Videos not found</Container>;
 
-const renderVideoList = videos => (
-  <Container>
-    <VideoViewerContainer>youtube</VideoViewerContainer>
-    <VideoListContainer>
-      <Videos>
-        {videos &&
-          videos.length > 0 &&
-          videos.map(video => (
-            <Video key={video.id}>
-              {video.name}/{video.key}
-            </Video>
-          ))}
-      </Videos>
-    </VideoListContainer>
-  </Container>
-);
+const renderVideoList = videos => {
+  const youtubeOpts = {
+    height: "390",
+    width: "640",
+    playerVars: {
+      autoplay: 1
+    }
+  };
+  return (
+    <Container>
+      <VideoViewerContainer>
+        <YouTube videoId={videos[0].key} opts={youtubeOpts} />
+      </VideoViewerContainer>
+      <VideoListContainer>
+        <Videos>
+          {videos &&
+            videos.length > 0 &&
+            videos.map(video => (
+              <Video key={video.id}>
+                {video.name}/{video.key}
+              </Video>
+            ))}
+        </Videos>
+      </VideoListContainer>
+    </Container>
+  );
+};
 
 export default VideoPresenter;
