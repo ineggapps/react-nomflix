@@ -1,8 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { Link, Redirect } from "react-router-dom";
 import YouTube from "react-youtube";
 
 const Container = styled.div``;
+
+const Title = styled.h1`
+  font-size: 50px;
+`;
 
 const VideoViewerContainer = styled.div``;
 
@@ -12,19 +17,22 @@ const Videos = styled.ul``;
 
 const Video = styled.li``;
 
-const VideoPresenter = ({ result }) => {
+const VideoPresenter = ({ result, videoInfo, loading }) => {
+  console.log("VideoPresenter", result, videoInfo, loading);
   //   return <>test</>;
-  let videos = result && result.results.length > 0 && result.results;
-  if (videos !== null && videos.length > 0) {
-    return renderVideoList(videos);
+  if (loading) {
+    return <>loading....</>;
+  } else if (result !== null && result.results.length > 0) {
+    return renderVideoList(result, videoInfo);
   } else {
-    return renderNotFound();
+    return renderNotFound;
   }
 };
 
 const renderNotFound = () => <Container>Videos not found</Container>;
 
-const renderVideoList = videos => {
+const renderVideoList = (result, videoInfo) => {
+  const { results: videos } = result;
   const youtubeOpts = {
     height: "390",
     width: "640",
@@ -32,8 +40,12 @@ const renderVideoList = videos => {
       autoplay: 1
     }
   };
+  console.log("👿VideoId is", videoInfo);
+  const { videoId, isMovie } = videoInfo;
+  const videoLink = isMovie ? `/movie/${result.id}/video` : `/show/${result.id}/video`;
   return (
     <Container>
+      <Title>{videoId}</Title>
       <VideoViewerContainer>
         <YouTube videoId={videos[0].key} opts={youtubeOpts} />
       </VideoViewerContainer>
@@ -43,7 +55,9 @@ const renderVideoList = videos => {
             videos.length > 0 &&
             videos.map(video => (
               <Video key={video.id}>
-                {video.name}/{video.key}
+                <Link to={`${videoLink}/${video.key}`}>
+                  {video.name}/{video.key}
+                </Link>
               </Video>
             ))}
         </Videos>
