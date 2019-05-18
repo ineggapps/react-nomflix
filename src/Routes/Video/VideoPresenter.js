@@ -15,7 +15,12 @@ const VideoListContainer = styled.div``;
 
 const Videos = styled.ul``;
 
-const Video = styled.li``;
+const Video = styled.li`
+  font-size: 16px;
+  :not(last-child) {
+    margin: 16px;
+  }
+`;
 
 const VideoPresenter = ({ result, videoInfo, loading }) => {
   console.log("VideoPresenter", result, videoInfo, loading);
@@ -47,7 +52,7 @@ const renderVideoList = (result, videoInfo) => {
     <Container>
       <Title>{videoId}</Title>
       <VideoViewerContainer>
-        <YouTube videoId={videos[0].key} opts={youtubeOpts} />
+        <YouTube videoId={videoInfo.videoId} opts={youtubeOpts} />
       </VideoViewerContainer>
       <VideoListContainer>
         <Videos>
@@ -56,7 +61,7 @@ const renderVideoList = (result, videoInfo) => {
             videos.map(video => (
               <Video key={video.id}>
                 <Link to={`${videoLink}/${video.key}`}>
-                  {video.name}/{video.key}
+                  {video.key} || {video.name}
                 </Link>
               </Video>
             ))}

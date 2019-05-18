@@ -71,10 +71,30 @@ class VideoContainer extends React.Component {
     }
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log("왜 호출돼?", nextState.result, nextState.result === null);
-  //   return nextState.result !== null;
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("왜 호출돼?", nextState.videoInfo.videoId, this.state.videoInfo.videoId);
+    return nextState.result !== null;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("🔒", nextProps.match.params);
+    const {
+      match: {
+        params: { videoId: newVideoId }
+      }
+    } = nextProps;
+    if (this.state.videoInfo.videoId === newVideoId) {
+      console.log("will return");
+      return;
+    } else {
+      //fetchnewProduct and set state to reload
+      this.setState({
+        videoInfo: {
+          videoId: newVideoId
+        }
+      });
+    }
+  }
 
   render() {
     const { result, videoInfo, loading } = this.state;
