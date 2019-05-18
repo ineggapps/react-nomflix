@@ -33,8 +33,14 @@ export default class extends React.Component {
     try {
       if (isMovie) {
         ({ data: result } = await movieApi.movieDetail(parsedId));
+        if (result.runtime === null || result.runtime === undefined) {
+          result.runtime = "unknown";
+        }
       } else {
         ({ data: result } = await tvApi.showDetail(parsedId));
+        if (result.episode_run_time === null || result.episode_run_time[0] === undefined) {
+          result.episode_run_time = ["unknown"];
+        }
       }
       console.log("😊👍", result);
     } catch {
