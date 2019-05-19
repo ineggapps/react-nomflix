@@ -23,6 +23,6 @@ Learning React and ES6 by building a Movie Discovery App.
 ## Code Challenges
 
 - [x] IMDB Link
-- [ ] Tabs inside of Movie / Show Details (Youtube Videos, Production Companies & Countries)
-- [ ] Collections Link (Make collection route! likewise "/collection/:id") on Movie
+- [] Tabs inside of Movie / Show Details (Youtube Videos, Production Companies & Countries)
+- [x] Video Link (Make collection route! likewise "/Video/:id") on Movie
 - [ ] On TV Show, show Seasons and creators.

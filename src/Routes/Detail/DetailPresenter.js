@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Helmet from "react-helmet";
 import Loader from "Components/Loader";
 import Message from "Components/Message";
+import { YoutubeIcon } from "Components/Icons";
 
 const Container = styled.div`
   height: calc(100vh - 50px);
@@ -74,6 +75,9 @@ const Overview = styled.p`
   opacity: 0.9;
   line-height: 1.5;
   width: 50%;
+  & svg {
+    fill: white;
+  }
 `;
 
 const Imdb = styled.a`
@@ -117,6 +121,13 @@ const DetailPresenter = ({ result, error, loading, pathname }) => {
         />
         <Data>
           <Title>{result.original_title ? result.original_title : result.original_name}</Title>
+          <Overview>
+            <span role="img" aria-label="Go to videos">
+              <Link to={`${pathname}/video`}>
+                <YoutubeIcon />
+              </Link>
+            </span>
+          </Overview>
           <ItemContainer>
             <Item>{result.release_date ? result.release_date : result.first_air_date}</Item>
             <Divider />
@@ -141,9 +152,6 @@ const DetailPresenter = ({ result, error, loading, pathname }) => {
               </>
             )}
           </ItemContainer>
-          <Overview>
-            <Link to={`${pathname}/video`}>Go to Videos</Link>
-          </Overview>
           <Overview>{result.overview && result.overview}</Overview>
         </Data>
       </Content>

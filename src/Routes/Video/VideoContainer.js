@@ -17,7 +17,7 @@ class VideoContainer extends React.Component {
         isMovie: pathname.includes("/movie/")
       }
     };
-    console.log("pathname", pathname.includes("/movie/"));
+    console.log(`pathname is ${pathname}, isMovie==`, pathname.includes("/movie/"));
   }
 
   async componentDidMount() {
@@ -32,7 +32,7 @@ class VideoContainer extends React.Component {
     } = this.props;
 
     //Initialize Settings to need for playing YouTube
-    const isMovie = this.state.videoInfo.isMovie;
+    const isMovie = pathname.includes("/movie/");
     console.log(isMovie);
     const parsedId = parseInt(id);
     if (isNaN(parsedId)) {
@@ -77,16 +77,23 @@ class VideoContainer extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log("왜 호출돼?", nextState.videoInfo.videoId, this.state.videoInfo.videoId);
-    return nextState.result !== null;
+    // console.log(
+    //   `shouldComponentUpdate 메소드에서 버그를 찾자 \n`,
+    //   `nextState= ${JSON.stringify(nextState)}\n`,
+    //   `thisState = ${JSON.stringify(this.state)}\n`,
+    //   `제발 돼라...`
+    // );
+    return nextState.videoInfo.videoId === undefined ? false : true;
   }
 
   componentWillReceiveProps(nextProps) {
     console.log("🔒", nextProps.match.params);
+    console.log(JSON.stringify(nextProps));
     const {
       match: {
         params: { videoId: newVideoId }
-      }
+      },
+      location: { pathname }
     } = nextProps;
     if (this.state.videoInfo.videoId === newVideoId) {
       console.log("will return");
@@ -95,7 +102,8 @@ class VideoContainer extends React.Component {
       //fetchnewProduct and set state to reload
       this.setState({
         videoInfo: {
-          videoId: newVideoId
+          videoId: newVideoId,
+          isMovie: pathname.includes("/movie")
         }
       });
     }
@@ -103,6 +111,7 @@ class VideoContainer extends React.Component {
 
   render() {
     const { result, videoInfo, loading } = this.state;
+    // console.log(`⏰ will be fowarded VideoPresenter: isMovie=${videoInfo.isMovie}`);
     return <VideoPresenter result={result} videoInfo={videoInfo} loading={loading} />;
   }
 }
