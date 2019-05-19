@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { Link, Redirect } from "react-router-dom";
+import Helmet from "react-helmet";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import YouTube from "react-youtube";
 
 const Container = styled.div``;
@@ -24,15 +26,20 @@ const Video = styled.li`
 
 const VideoPresenter = ({ result, videoInfo, loading }) => {
   console.log("VideoPresenter", result, videoInfo, loading);
+  const { error } = videoInfo;
   //   return <>test</>;
   if (loading) {
     return <>loading....</>;
+  } else if (error && error.length > 0) {
+    return error;
   } else if (result !== null && result.results.length > 0) {
     return renderVideoList(result, videoInfo);
   } else {
     return renderNotFound;
   }
 };
+
+const renderErrorPage = error => <Container>{error}</Container>;
 
 const renderNotFound = () => <Container>Videos not found</Container>;
 
@@ -69,6 +76,15 @@ const renderVideoList = (result, videoInfo) => {
       </VideoListContainer>
     </Container>
   );
+};
+
+VideoPresenter.propTypes = {
+  result: PropTypes.object,
+  videoInfo: PropTypes.shape({
+    videoId: PropTypes.string.isRequired,
+    isMovie: PropTypes.bool.isRequired,
+    error: PropTypes.string
+  })
 };
 
 export default VideoPresenter;

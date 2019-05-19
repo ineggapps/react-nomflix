@@ -59,6 +59,11 @@ class VideoContainer extends React.Component {
       //DEBUGGING// parsedVideoId = videoId !== undefined && videoId !== null ? videoId : videos[0].key;
     } catch (error) {
       console.log(error);
+      this.setState({
+        videoInfo: {
+          error
+        }
+      });
     } finally {
       this.setState({
         result,
@@ -98,11 +103,7 @@ class VideoContainer extends React.Component {
 
   render() {
     const { result, videoInfo, loading } = this.state;
-    if (result !== null) {
-      return <VideoPresenter result={result} videoInfo={videoInfo} loading={loading} />;
-    } else {
-      return <>Loading...!!!</>;
-    }
+    return <VideoPresenter result={result} videoInfo={videoInfo} loading={loading} />;
   }
 }
 

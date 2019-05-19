@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import Helmet from "react-helmet";
@@ -87,8 +88,9 @@ const Imdb = styled.a`
   background-size: cover;
 `;
 
-const DetailPresenter = ({ result, error, loading }) =>
-  loading ? (
+const DetailPresenter = ({ result, error, loading, pathname }) => {
+  console.log(pathname);
+  return loading ? (
     <>
       <Helmet>
         <title>Loading | Nomflix</title>
@@ -139,11 +141,15 @@ const DetailPresenter = ({ result, error, loading }) =>
               </>
             )}
           </ItemContainer>
+          <Overview>
+            <Link to={`${pathname}/video`}>Go to Videos</Link>
+          </Overview>
           <Overview>{result.overview && result.overview}</Overview>
         </Data>
       </Content>
     </Container>
   );
+};
 
 DetailPresenter.propTypes = {
   result: PropTypes.object,
