@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.js": "/react-nomflix/static/js/main.71834cfd.chunk.js",
+    "main.js.map": "/react-nomflix/static/js/main.71834cfd.chunk.js.map",
+    "runtime~main.js": "/react-nomflix/static/js/runtime~main.f6309d1a.js",
+    "runtime~main.js.map": "/react-nomflix/static/js/runtime~main.f6309d1a.js.map",
+    "static/js/2.2f08f496.chunk.js": "/react-nomflix/static/js/2.2f08f496.chunk.js",
+    "static/js/2.2f08f496.chunk.js.map": "/react-nomflix/static/js/2.2f08f496.chunk.js.map",
+    "index.html": "/react-nomflix/index.html",
+    "precache-manifest.a964ccccd45a0a9a5e6797daa9d096c7.js": "/react-nomflix/precache-manifest.a964ccccd45a0a9a5e6797daa9d096c7.js",
+    "service-worker.js": "/react-nomflix/service-worker.js",
+    "static/media/noPosterSmall.png": "/react-nomflix/static/media/noPosterSmall.87a0eb6a.png"
+  }
+}
