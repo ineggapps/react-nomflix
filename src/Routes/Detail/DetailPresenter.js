@@ -92,6 +92,16 @@ const Imdb = styled.a`
   background-size: cover;
 `;
 
+const ProductionCompanies = styled.ul`
+  margin: 20px 0;
+`;
+const Production = styled.li`
+  margin: 20px;
+`;
+const ProductionLogo = styled.img`
+  width: 120px;
+`;
+
 const DetailPresenter = ({ result, error, loading, pathname }) => {
   console.log(pathname);
   return loading ? (
@@ -153,6 +163,23 @@ const DetailPresenter = ({ result, error, loading, pathname }) => {
             )}
           </ItemContainer>
           <Overview>{result.overview && result.overview}</Overview>
+          <ProductionCompanies>
+            {result.production_companies &&
+              result.production_companies.length > 0 &&
+              result.production_companies.map(company => (
+                <Production>
+                  {company.logo_path ? (
+                    <ProductionLogo
+                      src={`https://image.tmdb.org/t/p/w200${company.logo_path}`}
+                      alt={company.name}
+                      title={company.name}
+                    />
+                  ) : (
+                    company.name
+                  )}
+                </Production>
+              ))}
+          </ProductionCompanies>
         </Data>
       </Content>
     </Container>
