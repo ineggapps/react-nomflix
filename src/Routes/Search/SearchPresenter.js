@@ -43,7 +43,7 @@ const SearchPresenter = ({
           onChange={updateTerm}
         />
       </Form>
-      {loading ? (
+      {loading && searchTerm ? (
         <Loader />
       ) : (
         <>

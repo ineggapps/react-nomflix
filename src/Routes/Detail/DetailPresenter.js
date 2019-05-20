@@ -6,6 +6,7 @@ import Helmet from "react-helmet";
 import Loader from "Components/Loader";
 import Message from "Components/Message";
 import { YoutubeIcon } from "Components/Icons";
+import PosterSeason from "Components/PosterSeason";
 
 const Container = styled.div`
   height: calc(100vh - 50px);
@@ -57,7 +58,7 @@ const Title = styled.h3`
 
 const ItemContainer = styled.div`
   position: relative;
-  margin-bottom: 20px;
+  margin: 20px 0;
 `;
 
 const Item = styled.span``;
@@ -93,14 +94,27 @@ const Imdb = styled.a`
 `;
 
 const ProductionCompanies = styled.ul`
+  width: 100%;
+  overflow: auto;
+  white-space: nowrap;
   margin: 20px 0;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  & > h2 {
+    font-size: 14px;
+    margin: 12px;
+  }
 `;
 const Production = styled.li`
+  display: inline-block;
   margin: 20px;
 `;
 const ProductionLogo = styled.img`
-  width: 120px;
+  width: 100px;
 `;
+
+const Seasons = ProductionCompanies;
+const Season = Production;
 
 const DetailPresenter = ({ result, error, loading, pathname }) => {
   console.log(pathname);
@@ -163,10 +177,10 @@ const DetailPresenter = ({ result, error, loading, pathname }) => {
             )}
           </ItemContainer>
           <Overview>{result.overview && result.overview}</Overview>
-          <ProductionCompanies>
-            {result.production_companies &&
-              result.production_companies.length > 0 &&
-              result.production_companies.map(company => (
+          {result.production_companies && result.production_companies.length > 0 && (
+            <ProductionCompanies>
+              <h2>Production Companies</h2>
+              {result.production_companies.map(company => (
                 <Production>
                   {company.logo_path ? (
                     <ProductionLogo
@@ -179,7 +193,24 @@ const DetailPresenter = ({ result, error, loading, pathname }) => {
                   )}
                 </Production>
               ))}
-          </ProductionCompanies>
+            </ProductionCompanies>
+          )}
+
+          {result.seasons && result.seasons.length > 0 && (
+            <Seasons>
+              <h2>Seasons</h2>
+              {result.seasons.map(s => (
+                <Season>
+                  <PosterSeason
+                    id={s.id}
+                    imageUrl={s.poster_path}
+                    title={s.name}
+                    year={s.air_date ? s.air_date.substring(0, 4) : "Unknown"}
+                  />
+                </Season>
+              ))}
+            </Seasons>
+          )}
         </Data>
       </Content>
     </Container>
